@@ -17,5 +17,6 @@ def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(securit
         if not user or not user.user:
             raise HTTPException(status_code=401, detail="Invalid token")
         return {"id": user.user.id, "email": user.user.email}
-    except Exception:
+    except Exception as e:
+        print(f"AUTH ERROR: {e}")
         raise HTTPException(status_code=401, detail="Invalid or expired token")
